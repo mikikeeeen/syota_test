@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <style type="text/css">
+      <!--
+      p {color:blue; line-height:1.5;}
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      header,footer,main,nav,aside {
+        box-sizing: border-box;
+        padding: 10px;
+      }
+      header {
+        background-color: #F7B3F9;
+      }
+      #header_title{
+        font-weight:bold;
+        font-size: 30px;
+        text-align: center;
+        margin: 0;
+        font-color: white;
+      }
+      footer {
+        /* background-color: #C9F4FF; */
+      }
+      main {
+        /* background-color: #BAFCDE; */
+      }
+      nav {
+          /* background-color: #FDFFCC; */
+      }
+      #nav-title{
+        font-size: 25px;
+        text-align: center;
+      }
+      aside {
+          /* background-color: #FFDE99; */
+      }
+      
+      .grid_container {
+          display: grid;/* グリッドコンテナであることを定義 */
+          grid-template-areas: 'header'/* 1行目 */
+                              'nav'/* 2行目 */
+                              'main'/* 3行目 */
+                              'aside'/* 4行目 */
+                              'footer'/* 5行目 */;
+          grid-template-rows: 60px 50px 1fr auto 60px;/* 行の高さ */
+          grid-template-columns: 1fr;/* 列の幅 */
+          grid-row-gap: 0; /*行と行の間の余白 */
+      }
+      .grid_header {
+          grid-area: header;
+      }
+      .grid_footer {
+          grid-area: footer;
+      }
+      .grid_main {
+          grid-area: main;
+      }
+      .grid_nav {
+          grid-area: nav;
+      }
+      .grid_aside {
+          grid-area: aside;
+      }
+      
+      /* デバイス幅が600px以上の時 */
+      @media screen and (min-width: 600px) {
+          .grid_container {
+              grid-template-areas: 'header header header'/* 1行目 */
+                                  'nav main aside'/* 2行目 */
+                                  'footer footer footer';/* 3行目 */
+              grid-template-rows: 60px 1fr 100px;/* 行の高さ */
+              grid-template-columns: 20% 1fr 20%;/* 列の幅 */
+              grid-row-gap: 10px;/* 行と行の間の余白 */
+              grid-column-gap: 10px;/* 列と列の間の余白 */
+              /* ショートハンドだと
+              grid-gap: 10px 10px;
+              */
+              height: 100vh;/* フッタの位置を最下部に */
+          }
+      
+      }
+      -->
+    </style>
+  </head>
+  <body>
+    <div class="grid_container">
+        <header class="grid_header">
+          <p id ="header_title">アイデア出し選手権</p>
+        </header>
+        <nav class="grid_nav">
+          <!-- navのことを書く -->
+          <p style="font-weight:bold" id = "nav-title">操作一覧</p>
+          <ul>
+            
+            <br>
+            <button id="end_of_month_process">アイデア一覧</button>
+            <br>
+              <!-- <a href = "https://script.google.com/macros/s/AKfycbz9Qpg7xJJXc8R86a63bP9korz3ovEl6dUignbAxipnWN7eRTIIF1cyUTwGAB0IHyjR/exec">来月分のシートを作成</a> -->
+          </ul>
+          <br>
+        </nav>
+        <main class="grid_main">
+            <p style="font-weight:bold;">①アイデア名を入力してください</p>
+            <br>
+            <textarea id="ta"></textarea>
+            <br>
+            <p style="font-weight:bold;">②あなたの名前を入力してください</p>
+            <br>
+            <textarea id="ta"></textarea>
+            <br><br>
+            <p style="font-weight: bold;">③質問１</p>
+            <br>
+            <select id ="qustion1">
+              <option value = "1">全く当てはまらない</option>
+              <option value = "2">当てはまらない</option>
+              <option value = "3">どちらかと言えば当てはまる</option>
+              <option value = "4">当てはまる</option>
+              <option value = "5">とても当てはまる</option>
+            </select>
+            <br><br>
+            <p style="font-weight:bold;">④質問２</p>
+            <br>
+            <select id ="qustion1">
+              <option value = "1">全く当てはまらない</option>
+              <option value = "2">当てはまらない</option>
+              <option value = "3">どちらかと言えば当てはまる</option>
+              <option value = "4">当てはまる</option>
+              <option value = "5">とても当てはまる</option>
+            </select>
+            <br>
+            <p style="font-weight: bold;">⑤質問３</p>
+            <br>
+            <select id ="submitter">
+              <option value = "1">全く当てはまらない</option>
+              <option value = "2">当てはまらない</option>
+              <option value = "3">どちらかと言えば当てはまる</option>
+              <option value = "4">当てはまる</option>
+              <option value = "5">とても当てはまる</option>
+            </select>
+            <br>
+            <p style="font-weight: bold;">送信ボタンを押してください</p>
+            <br>
+            <button id="submit">送信</button>
+        </main>
+        <aside class="grid_aside">
+          <!-- asideのことを書く -->
+        </aside>
+        <footer class="grid_footer">
+          <!-- footerのことを書く -->
+        </footer>
+      </div><!-- /.grid_container -->
+    <!------以下スプリクトタグ------>
+
+    <script>
+      document.getElementById("submit").onclick = send_to_code;
+      function send_to_code(){
+        Browser.msgBox("テスト");
+        var ss_url="https://docs.google.com/spreadsheets/d/1mHZURelfs1cuwW-Ju_-HdSDvnLOc2aoYP1NjbHOSR-c/edit#gid=0"
+        var option1 = document.getElementById("question1").value;
+        google.script.run
+          .send_to_code_gs(option1,ss_url);
+      }
+    </script>
+
+      <!-- <script>
+      document.getElementById("submit").onclick = input_to_sheet;
+      function input_to_sheet() {
+        var ss_url = "https://docs.google.com/spreadsheets/d/1-QB-sW0_lzOPfoLrSANdgx8zIALnqKm9hoX_jtUwhwA/edit#gid=0";
+        var value = document.getElementById("ta").value;
+        var value2 = document.getElementById("submitter").value;
+        var datetime = document.getElementById("date").value;
+        var contents_js = document.getElementById("contents").value;
+        // var now = new Date(); //new Dateで現在の時間を出力される
+        google.script.run
+          .withFailureHandler(onFailure)
+          .withSuccessHandler(onSuccess)
+          .input_to_sheet_gs(ss_url, value, value2, datetime, contents_js);
+      }
+
+      document.getElementById("submit").onclick = input_to_sheet;
+      function onSuccess(result) {
+        alert(result);
+      }
+
+      function onFailure(e) {
+        alert([e.message, e.stack]);
+      }
+      document.getElementById("end_of_month_process").onclick = api_exec;
+      function api_exec(){
+        google.script.run.notify_new_sheet();
+        return "月末処理完了！！"
+      }
+
+    </script> -->
+  </body>
+</html>
